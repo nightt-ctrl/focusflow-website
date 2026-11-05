@@ -1,0 +1,8 @@
+dist/
+downloads/FocusFlow-0.6.0.zip
+.vercel/
+.env*
+!.env.example
+node_modules/
+.cache/
+.sites-runtime/
