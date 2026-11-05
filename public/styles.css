@@ -4,3 +4,73 @@
 @media(min-width:1600px){.hero{padding-top:95px}.hero-copy{margin-top:28px}}
 @media(max-width:950px){.feature-panel{gap:28px;grid-template-columns:1fr 1.65fr}.family-grid{gap:45px}.privacy-grid,.faq-grid{gap:45px}.section{padding:80px 0}.family-visual{height:500px}.guide-layout{grid-template-columns:180px 1fr;gap:35px}}
 @media(max-width:700px){.container{width:calc(100% - 40px)}.site-header{height:68px}.nav{justify-content:space-between}.menu-button{display:flex}.nav-links{display:none;position:absolute;top:67px;left:0;right:0;margin:0;padding:20px;background:#101113;border-bottom:1px solid #333;flex-direction:column;align-items:stretch;gap:0}.nav-links.open{display:flex}.nav-links a{padding:13px}.nav-download{text-align:center;margin-top:10px}.hero{padding-top:55px}.hero h1{font-size:60px}.hero-copy{font-size:14px;max-width:350px}.hero-note{font-size:10px;margin-bottom:30px}.hero-preview{padding:4px 4px 0;border-radius:9px 9px 0 0}.window-bar{height:22px;font-size:8px}.window-dots i{width:4px;height:4px}.preview-bottom{height:30px;margin-top:-30px}.platform-strip{gap:18px;padding:23px 0;font-size:9px}.platform-strip svg{height:13px;width:13px}.platform-strip span{gap:5px}.section{padding:65px 0}.section-head{display:block;margin-bottom:30px}.section-head p{margin-top:20px}.section-head h2{max-width:400px}.feature-tabs{width:100%;gap:2px}.feature-tabs button{padding:10px 4px;flex:1;font-size:11px}.feature-panel{grid-template-columns:1fr;gap:30px}.feature-panel p{max-width:460px}.feature-panel h3{font-size:25px}.check-list{display:flex;flex-wrap:wrap;gap:0 18px;margin-top:10px}.check-list li{margin:5px 0}.family-grid{grid-template-columns:1fr;gap:40px}.family-text{grid-row:1}.family-visual{height:475px}.family-points{margin-top:25px}.family-point p{max-width:100%}.family-text>p{max-width:100%}.privacy-grid,.faq-grid{grid-template-columns:1fr;gap:35px}.faq-grid h2{font-size:38px}.cta-section{padding:70px 0}.footer-top{align-items:start;flex-direction:column;gap:25px}.footer-links{gap:22px;flex-wrap:wrap}.footer-bottom{flex-direction:column;gap:8px}.page-intro{padding:55px 0 35px}.page-intro p{font-size:14px}.download-grid{grid-template-columns:1fr;margin-bottom:45px}.download-card{padding:28px}.download-card p{min-height:0}.download-notes{grid-template-columns:1fr;gap:35px;padding-bottom:50px}.guide-layout{grid-template-columns:1fr;gap:35px;padding-bottom:30px}.guide-nav{position:static;flex-direction:row;flex-wrap:wrap;gap:12px 22px;border-bottom:1px solid var(--line);padding-bottom:25px}.guide-content h2{font-size:27px}.section-label{font-size:9px}.not-found{padding:90px 0}}
+
+/* Site palettes */
+:root {
+  --bg: #14132a;
+  --surface: #221c3c;
+  --line: #44365e;
+  --text: #f7f1ff;
+  --muted: #c0b4d2;
+  --accent: #d3b6ff;
+  --glow: #5a3295;
+  --glow-secondary: #2a3e81;
+  --button-end: #a4bcff;
+  --button-ink: #1b1434;
+}
+:root[data-theme="ocean"] {
+  --bg: #0d222b;
+  --surface: #153540;
+  --line: #2d5260;
+  --text: #eafffc;
+  --muted: #adcbd0;
+  --accent: #83eedb;
+  --glow: #176576;
+  --glow-secondary: #234d88;
+  --button-end: #a3caff;
+  --button-ink: #0c2833;
+}
+:root[data-theme="sunset"] {
+  --bg: #291922;
+  --surface: #3f242f;
+  --line: #643c49;
+  --text: #fff2eb;
+  --muted: #dfbdbe;
+  --accent: #ffc39f;
+  --glow: #884249;
+  --glow-secondary: #733965;
+  --button-end: #f2a8cf;
+  --button-ink: #371b28;
+}
+body {
+  background: radial-gradient(ellipse at 12% 0%, var(--glow) 0%, transparent 38rem),
+              radial-gradient(ellipse at 94% 6%, var(--glow-secondary) 0%, transparent 35rem),
+              var(--bg);
+}
+.site-header { background: color-mix(in srgb, var(--bg) 89%, transparent); }
+.hero h1 span:last-child { color: var(--accent); }
+body .button.primary {
+  background: linear-gradient(125deg, var(--accent), var(--button-end));
+  color: var(--button-ink);
+}
+body .button.primary:hover { background: linear-gradient(125deg, var(--button-end), var(--accent)); }
+body .button.secondary, body .nav-download, .feature-tabs, .theme-picker select {
+  background: var(--surface);
+  border-color: var(--line);
+}
+.download-card {
+  background: linear-gradient(145deg, var(--surface), var(--bg));
+  border-color: var(--line);
+}
+.theme-picker { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--muted); }
+.theme-picker select {
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  color: var(--text);
+  padding: 0.35rem 0.45rem;
+  font: inherit;
+}
+.theme-picker select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 720px) {
+  .theme-picker { margin: 0.25rem 0; }
+}

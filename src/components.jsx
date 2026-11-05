@@ -5,7 +5,7 @@ export function Icon({name, className=''}) {
  return <svg className={className} aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">{paths[name]}</svg>;
 }
 
-export function Header({path}) {
+export function Header({path, theme, onThemeChange}) {
  const [open,setOpen]=useState(false);
  const button=useRef(null);
  useEffect(()=>{
@@ -19,6 +19,14 @@ export function Header({path}) {
   <button className="menu-button" ref={button} onClick={()=>setOpen(value=>!value)} aria-expanded={open} aria-controls="nav-links" aria-label={open?'Close navigation':'Open navigation'}><Icon name={open?'close':'menu'}/></button>
   <div className={`nav-links${open?' open':''}`} id="nav-links" onClick={()=>setOpen(false)}>
    <a href="/#features">Features</a><a href="/#family">For families</a><a href="/guide" aria-current={path==='/guide'?'page':undefined}>Get started</a>
+   <label className="theme-picker" onClick={event=>event.stopPropagation()}>
+    <span>Theme</span>
+    <select value={theme} onChange={event=>onThemeChange(event.target.value)}>
+     <option value="violet">Violet</option>
+     <option value="ocean">Ocean</option>
+     <option value="sunset">Sunset</option>
+    </select>
+   </label>
    <a href="/download" className="nav-download" aria-current={path==='/download'?'page':undefined}><span>Download</span><Icon name="arrow"/></a>
   </div>
  </nav></header></>;
