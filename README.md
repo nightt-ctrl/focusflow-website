@@ -27,7 +27,7 @@ The Desktop project and complete website ZIP include both release files, so the 
 5. Add an environment variable named `WINDOWS_DOWNLOAD_URL` containing the actual public HTTPS URL of the Windows ZIP. The production build deliberately stops with an explanation until that URL is supplied, rather than publishing a broken download button.
 6. Deploy. The Android APK can stay with the site. To host it elsewhere too, set `ANDROID_DOWNLOAD_URL` to its direct HTTPS URL.
 
-There is no Vercel account connected and no production site has been published. No MCP connection is necessary for the GitHub import workflow. If a repository is public, include only the website files, not the main project workspace or report folders.
+No MCP connection is necessary for the GitHub import workflow. If a repository is public, include only the website files, not the main project workspace or report folders.
 
 Vercel source upload limits: https://vercel.com/docs/limits#static-file-uploads
 
@@ -40,9 +40,9 @@ Replace the release files and update filenames, versions and SHA-256 values in `
 - FocusFlow's existing approved black and white logo.
 - Real Windows and Android screenshots, without live family information.
 - Inter font, self-hosted. Its SIL Open Font License is included in `public/assets/Inter-LICENSE.txt`.
-- Original CSS and decorative contour drawing. No code, images, logos or copy from the reference website were reused.
+- The homepage foil frame is an independent CSS and React adaptation of [Iridescent Foil by dqnamo](https://www.dqnamo.com/experiments/iridescent-foil).
 - React-powered keyboard-accessible tabs, native FAQ accordions, mobile navigation, scroll reveals and hover animations. React is bundled locally; there are no third-party runtime CDN requests.
-- Scroll-linked fades follow the visitor's scroll position, with a visible rise and blur-to-clear effect. Animations are enabled by default; the footer's Animations control lets visitors switch them off, saved locally in their browser.
+- Sections rise and fade into view once as you scroll. The foil responds to pointer movement and scrolling. Motion follows the system preference until changed in the footer, and the choice is saved in the browser.
 - React and React DOM are distributed under their included MIT licenses in the built assets folder.
 
 The Android download is a debug-signed development APK. The website describes the app's actual local-network and account limitations. The report and apps are not modified by this website project.
