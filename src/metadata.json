@@ -1,26 +1,26 @@
 {
   "/": {
-    "title": "FocusFlow — Make time to focus",
+    "title": "FocusTether — Make time to focus",
     "description": "A calmer study workspace for Windows, with an Android parent companion. Focus sessions, activity insights and optional family reports."
   },
   "/download": {
-    "title": "Download FocusFlow — Windows & Android",
-    "description": "Download FocusFlow for Windows and the Android parent companion. Current development builds, setup guidance and file checksums."
+    "title": "Download FocusTether — Windows & Android",
+    "description": "Download FocusTether for Windows and the Android parent companion. Current development builds, setup guidance and file checksums."
   },
   "/guide": {
-    "title": "Get started — FocusFlow",
-    "description": "Set up FocusFlow on Windows, connect the browser companion and pair the Android parent app on your home network."
+    "title": "Get started — FocusTether",
+    "description": "Set up FocusTether on Windows, connect the browser companion and pair the Android parent app on your home network."
   },
   "/privacy": {
-    "title": "Privacy — FocusFlow",
-    "description": "What FocusFlow records, where study information stays and how optional family sharing works."
+    "title": "Privacy — FocusTether",
+    "description": "What FocusTether records, where study information stays and how optional family sharing works."
   },
   "/releases": {
-    "title": "Release notes — FocusFlow",
-    "description": "Explore the latest FocusFlow Windows 0.6.0 and Android Parent 0.3.0 development releases."
+    "title": "Release notes — FocusTether",
+    "description": "Explore the latest FocusTether Windows 0.6.2 and Android Parent 0.3.1 development releases."
   },
   "/404": {
-    "title": "Page not found — FocusFlow",
+    "title": "Page not found — FocusTether",
     "description": "This page could not be found."
   }
 }

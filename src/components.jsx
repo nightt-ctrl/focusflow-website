@@ -5,7 +5,7 @@ export function Icon({name, className=''}) {
  return <svg className={className} aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">{name==='play'?<path d="M8 5v14l11-7z"/>:paths[name]}</svg>;
 }
 
-export function Header({path, theme, onThemeChange}) {
+export function Header({path}) {
  const [open,setOpen]=useState(false);
  const button=useRef(null);
  useEffect(()=>{
@@ -15,18 +15,10 @@ export function Header({path, theme, onThemeChange}) {
   return ()=>document.removeEventListener('keydown',escape);
  },[open]);
  return <><a className="skip" href="#main">Skip to content</a><header className="site-header"><nav className="container nav" aria-label="Main navigation">
-  <a className="brand" href="/" aria-label="FocusFlow home"><img src="/assets/logo.svg" width="30" height="30" alt=""/>FocusFlow</a>
+  <a className="brand" href="/" aria-label="FocusTether home"><img src="/assets/logo.svg" width="30" height="30" alt=""/>FocusTether</a>
   <button className="menu-button" ref={button} onClick={()=>setOpen(value=>!value)} aria-expanded={open} aria-controls="nav-links" aria-label={open?'Close navigation':'Open navigation'}><Icon name={open?'close':'menu'}/></button>
   <div className={`nav-links${open?' open':''}`} id="nav-links" onClick={()=>setOpen(false)}>
    <a href="/#features">Features</a><a href="/#family">For families</a><a href="/guide" aria-current={path==='/guide'?'page':undefined}>Get started</a>
-   <label className="theme-picker" onClick={event=>event.stopPropagation()}>
-    <span>Theme</span>
-    <select value={theme} onChange={event=>onThemeChange(event.target.value)}>
-     <option value="violet">Violet</option>
-     <option value="ocean">Ocean</option>
-     <option value="sunset">Sunset</option>
-    </select>
-   </label>
    <a href="/download" className="nav-download" aria-current={path==='/download'?'page':undefined}><span>Download</span><Icon name="arrow"/></a>
   </div>
  </nav></header></>;
@@ -42,7 +34,7 @@ export function FeatureTour({panels}) {
   if(keys[event.key]===undefined)return;
   event.preventDefault();setSelected(keys[event.key]);tabRefs.current[keys[event.key]]?.focus();
  }
- return <div className="feature-tour"><div className="feature-tabs" style={{"--active-tab":selected}} role="tablist" aria-label="Explore FocusFlow features">
+ return <div className="feature-tour"><div className="feature-tabs" role="tablist" aria-label="Explore FocusTether features">
   {names.map((name,index)=><button key={ids[index]} ref={el=>{tabRefs.current[index]=el;}} id={`tab-${ids[index]}`} role="tab" aria-selected={selected===index} aria-controls={`panel-${ids[index]}`} tabIndex={selected===index?0:-1} onClick={()=>setSelected(index)} onKeyDown={event=>keyboard(event,index)}>{name}</button>)}
  </div>{panels.map((panel,index)=>cloneElement(panel,{key:ids[index],hidden:selected!==index,tabIndex:0}))}</div>;
 }
@@ -74,37 +66,60 @@ export function MotionControl({mode,onChange}){
 
 export function useScrollReveal(path, mode) {
  useEffect(() => {
-  const preference = matchMedia('(prefers-reduced-motion: reduce)');
-  const targets = [...document.querySelectorAll('[data-reveal], .download-card, .guide-content section, .feature-tour, .faq-grid')];
-  let observer;
+  if (mode === 'reduced') return;
 
-  function setup() {
-   observer?.disconnect();
-   document.documentElement.dataset.motion = mode;
-   const reduced = mode === 'reduced' || (mode === 'system' && preference.matches);
-   targets.forEach(element => element.classList.remove('reveal-pending'));
-   if (reduced || !('IntersectionObserver' in window)) return;
+  const targets = Array.from(document.querySelectorAll(
+   '.section-head, .feature-tour, .family-visual, .family-text, .privacy-grid, .faq-grid, .cta-section > .container, .download-card, .download-notes, .integrity, .guide-content section',
+  ));
+  const header = document.querySelector('.site-header');
+  let frame = 0;
 
-   observer = new IntersectionObserver(entries => {
-    for (const {target, isIntersecting} of entries) {
-     if (!isIntersecting) continue;
-     target.classList.remove('reveal-pending');
-     observer.unobserve(target);
-    }
-   }, {rootMargin: '0px 0px -32px'});
-   for (const element of targets) {
-    if (element.getBoundingClientRect().top < innerHeight) continue;
-    element.classList.add('reveal-pending');
-    observer.observe(element);
-   }
+  function paint() {
+   frame = 0;
+   const topEdge = header?.offsetHeight ?? 0;
+   const bottomEdge = window.innerHeight;
+   const fadeDistance = Math.min(360, (bottomEdge - topEdge) * 0.48);
+   if (fadeDistance <= 0) return;
+
+   const scrollY = window.scrollY;
+   const reveals = targets.map(element => {
+    // Layout offsets keep the reveal position independent of its own movement.
+    let top = -scrollY;
+    for (let node = element; node; node = node.offsetParent) top += node.offsetTop;
+    const fromBottom = bottomEdge - top;
+    const fromTop = top + element.offsetHeight - topEdge;
+    const progress = Math.max(0, Math.min(1, Math.min(fromBottom, fromTop) / fadeDistance));
+    const eased = progress * progress * (3 - 2 * progress);
+    return {eased, direction: fromBottom < fromTop ? 1 : -1};
+   });
+   targets.forEach((element, index) => {
+    const {eased, direction} = reveals[index];
+    element.classList.add('scroll-fade');
+    element.style.setProperty('--scroll-progress', eased.toFixed(3));
+    element.style.setProperty('--scroll-shift', ((1 - eased) * direction).toFixed(3));
+   });
   }
 
-  setup();
-  preference.addEventListener('change', setup);
+  function schedulePaint() {
+   if (!frame) frame = requestAnimationFrame(paint);
+  }
+
+  paint();
+  window.addEventListener('scroll', schedulePaint, {passive: true});
+  window.addEventListener('resize', schedulePaint);
+  const resize = typeof ResizeObserver === 'function' ? new ResizeObserver(schedulePaint) : null;
+  if (resize) for (const element of targets) resize.observe(element);
+
   return () => {
-   observer?.disconnect();
-   preference.removeEventListener('change', setup);
-   targets.forEach(element => element.classList.remove('reveal-pending'));
+   cancelAnimationFrame(frame);
+   resize?.disconnect();
+   window.removeEventListener('scroll', schedulePaint);
+   window.removeEventListener('resize', schedulePaint);
+   for (const element of targets) {
+    element.classList.remove('scroll-fade');
+    element.style.removeProperty('--scroll-progress');
+    element.style.removeProperty('--scroll-shift');
+   }
   };
  }, [path, mode]);
 }

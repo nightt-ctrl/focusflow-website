@@ -1,102 +1,42 @@
 :root { --ease-out: cubic-bezier(.22, 1, .36, 1); }
 
-body, .site-header, .cta-section {
-  transition: background-color 280ms ease, color 240ms ease, border-color 240ms ease;
+.button, .nav-download, .menu-button, .copy-button, .feature-tabs button,
+.nav-links a, .footer-links a, .motion-control {
+  transition: color 160ms var(--ease-out), background-color 160ms var(--ease-out), border-color 160ms var(--ease-out), transform 160ms var(--ease-out);
 }
-.nav-download {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  min-height: 42px;
-  padding: 0 16px;
-  line-height: 1;
-  white-space: nowrap;
-}
-.nav-download svg { width: 17px; height: 17px; }
-.button, .nav-download, .copy-button, .menu-button, .motion-control, .feature-tabs button {
-  transition: transform 220ms var(--ease-out), background-color 180ms ease, border-color 180ms ease, color 180ms ease;
-}
-.button svg, .nav-download svg, .text-link svg {
-  transition: transform 240ms var(--ease-out);
-}
-@media (hover: hover) {
-  .button:hover, .nav-download:hover { transform: translateY(-2px); }
-  .button.primary:hover svg { transform: translateY(2px); }
-  .button.secondary:hover svg, .nav-download:hover svg, .text-link:hover svg { transform: translateX(3px); }
-}
-.button:active, .nav-download:active, .copy-button:active, .menu-button:active,
-.motion-control:active, .feature-tabs button:active {
-  transform: translateY(1px) scale(.975);
-  transition-duration: 90ms;
-}
-.nav-links > a:not(.nav-download), .footer-links a {
-  transition: color 180ms ease;
-  text-underline-offset: 6px;
-}
-.nav-links > a:not(.nav-download):hover, .footer-links a:hover {
-  text-decoration: underline;
-}
-.feature-tabs::before { transition: transform 320ms var(--ease-out), background-color 240ms ease; }
-.feature-tabs button:hover { color: var(--text); }
-.feature-panel:not([hidden]) { animation: enter 340ms var(--ease-out) both; }
-summary { transition: color 180ms ease; }
-summary:hover { color: var(--accent); }
-details[open] > p { animation: enter 300ms var(--ease-out) both; }
+.button:active, .nav-download:active, .menu-button:active, .copy-button:active { transform: scale(.98); }
+.hero-layout, .showcase-dialog[open] { animation: enter 260ms var(--ease-out) both; }
+.feature-panel:not([hidden]) { animation: appear 180ms var(--ease-out) both; }
 
-.hero-intro { animation: enter 620ms var(--ease-out) both; }
-.foil-surface { animation: enter 720ms 65ms var(--ease-out) both; }
 @keyframes enter {
-  from { opacity: 0; translate: 0 12px; }
+  from { opacity: 0; translate: 0 4px; }
   to { opacity: 1; translate: 0 0; }
 }
+@keyframes appear { from { opacity: 0; } to { opacity: 1; } }
 
-[data-reveal], .feature-tour, .faq-grid, .download-card, .guide-content section {
-  transition: opacity 640ms var(--ease-out), translate 680ms var(--ease-out);
+.scroll-fade {
+  --scroll-travel: 110px;
+  transition: opacity 160ms linear, translate 220ms ease-out, filter 180ms linear;
 }
-.reveal-pending:not(:focus-within) { opacity: 0; translate: 0 46px; }
+.scroll-fade:not(:focus-within) {
+  opacity: var(--scroll-progress, 1);
+  translate: 0 calc(var(--scroll-shift, 0) * var(--scroll-travel));
+  filter: blur(calc((1 - var(--scroll-progress, 1)) * 4px));
+}
 
 @media (max-width: 700px) {
-  .nav-links {
-    display: flex;
-    opacity: 0;
-    visibility: hidden;
-    translate: 0 -8px;
-    transition: opacity 180ms ease, translate 260ms var(--ease-out), visibility 180ms;
-  }
-  .nav-links.open { opacity: 1; visibility: visible; translate: 0 0; }
-  .nav-links .nav-download { padding: 0 16px; }
+  .scroll-fade { --scroll-travel: 72px; }
+  .nav-links { transition: opacity 180ms var(--ease-out), translate 180ms var(--ease-out), visibility 180ms; }
 }
-
-.motion-control {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  border: 0;
-  background: none;
-  padding: 0;
-  color: var(--muted);
-  font-size: 10px;
-  line-height: 1.6;
-  white-space: nowrap;
-}
-.motion-control:hover { color: var(--text); }
-.motion-dot { width: 5px; height: 5px; border-radius: 50%; background: #81818b; }
-.motion-control[aria-pressed=true] .motion-dot { background: var(--accent); }
-
 html[data-motion=reduced] { scroll-behavior: auto; }
 html[data-motion=reduced] *, html[data-motion=reduced] *::before, html[data-motion=reduced] *::after {
   animation: none !important;
   transition: none !important;
 }
-html[data-motion=reduced] .reveal-pending { opacity: 1; translate: none; }
-
 @media (prefers-reduced-motion: reduce) {
   html:not([data-motion=full]) { scroll-behavior: auto; }
   html:not([data-motion=full]) *, html:not([data-motion=full]) *::before, html:not([data-motion=full]) *::after {
     animation: none !important;
     transition: none !important;
   }
-  html:not([data-motion=full]) .reveal-pending { opacity: 1; translate: none; }
-  html:not([data-motion=full]) .foil-film { --foil-x: 50%; --foil-y: 50%; --foil-sweep: 42%; }
 }

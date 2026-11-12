@@ -38,4 +38,4 @@ const server=http.createServer((req,res)=>{
  fs.createReadStream(target).pipe(res);
 });
 const port=Number(process.env.PORT||4173);
-server.listen(port,'127.0.0.1',()=>console.log(`FocusFlow preview: http://127.0.0.1:${port}`));
+server.listen(port,'127.0.0.1',()=>console.log(`FocusTether preview: http://127.0.0.1:${port}`));

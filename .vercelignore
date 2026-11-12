@@ -1,5 +1,5 @@
 dist
-downloads/FocusFlow-0.6.0.zip
+downloads/*.zip
 .git
 .env*
 README.md

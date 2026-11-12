@@ -6,12 +6,23 @@ import {createHash} from 'node:crypto';
 
 const root=process.cwd();
 const dist=path.join(root,'dist');
-const windows=process.env.WINDOWS_DOWNLOAD_URL||'/downloads/FocusFlow-0.6.0.zip';
-const android=process.env.ANDROID_DOWNLOAD_URL||'/downloads/FocusFlow-Parent-0.3.0-debug.apk';
-for(const url of [process.env.WINDOWS_DOWNLOAD_URL,process.env.ANDROID_DOWNLOAD_URL].filter(Boolean)){
- if(new URL(url).protocol!=='https:')throw new Error('Public download URLs must use HTTPS.');
+const releases=JSON.parse(fs.readFileSync(path.join(root,'releases.json'),'utf8'));
+const previousRelease='https://github.com/nightt-ctrl/focusflow-website/releases/download/v0.6.0/';
+function downloadUrl(release, key, previousName) {
+ const configured=process.env[key];
+ // The original Vercel project still has the old FocusFlow URLs configured.
+ const override=configured===previousRelease+previousName ? undefined : configured;
+ const selected=override || (process.env.VERCEL ? release.publicUrl : `/downloads/${release.name}`);
+ if(selected.startsWith('/downloads/') && !override && !process.env.VERCEL) return selected;
+ const remote=new URL(selected);
+ if(remote.protocol!=='https:') throw new Error('Public download URLs must use HTTPS.');
+ if(decodeURIComponent(remote.pathname.split('/').at(-1))!==release.name) {
+  throw new Error(`Update ${key} to the hosted ${release.name} file before publishing.`);
+ }
+ return selected;
 }
-if(process.env.VERCEL&&!process.env.WINDOWS_DOWNLOAD_URL)throw new Error('Set WINDOWS_DOWNLOAD_URL to the hosted Windows release ZIP. See README.md.');
+const windows=downloadUrl(releases[0],'WINDOWS_DOWNLOAD_URL','FocusFlow-0.6.0.zip');
+const android=downloadUrl(releases[1],'ANDROID_DOWNLOAD_URL','FocusFlow-Parent-0.3.0-debug.apk');
 fs.mkdirSync(dist,{recursive:true});
 fs.cpSync(path.join(root,'public'),dist,{recursive:true});
 for(const name of ['react','react-dom'])fs.copyFileSync(path.join(root,'node_modules',name,'LICENSE'),path.join(dist,'assets',name+'-LICENSE.txt'));

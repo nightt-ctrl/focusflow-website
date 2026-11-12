@@ -1,5 +1,5 @@
 dist/
-downloads/FocusFlow-0.6.0.zip
+downloads/*.zip
 .vercel/
 .env*
 !.env.example

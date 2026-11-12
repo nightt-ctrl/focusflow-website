@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 
-const welcomeKey = 'focusflow-showcase-seen';
+const welcomeKey = 'focustether-showcase-seen';
 
 export function Showcase({path, welcome, onClose}) {
  const dialog = useRef(null);
@@ -41,7 +41,7 @@ export function Showcase({path, welcome, onClose}) {
   onCancel={event => {event.preventDefault(); close();}}
  >
   <header className="showcase-header">
-   <h2 id="showcase-title">Meet FocusFlow</h2>
+   <h2 id="showcase-title">Meet FocusTether</h2>
    <button className="button secondary showcase-close" type="button" onClick={close}>
     {welcome ? 'Skip to homepage' : 'Close video'}
    </button>
@@ -49,18 +49,18 @@ export function Showcase({path, welcome, onClose}) {
   <video
    ref={video}
    className="showcase-video"
-   src="/assets/focusflow-showcase.mp4"
-   poster="/assets/focusflow-showcase-poster.webp"
+   src="/assets/focustether-showcase.mp4"
+   poster="/assets/focustether-showcase-poster.webp"
    controls
    playsInline
    preload="metadata"
-   aria-label="FocusFlow for Windows product walkthrough"
+   aria-label="FocusTether for Windows product walkthrough"
    onVolumeChange={event => setMuted(event.currentTarget.muted)}
    onEnded={welcome ? close : undefined}
    onError={() => setFailed(true)}
   />
   <footer className="showcase-footer">
-   <p>{failed ? 'The video couldn’t load. You can still continue to FocusFlow.' : 'Windows product tour · 33 seconds'}</p>
+   <p>{failed ? 'The video couldn’t load. You can still continue to FocusTether.' : 'Windows product tour · 33 seconds'}</p>
    {muted && !failed && <button className="button secondary showcase-sound" type="button" onClick={enableSound}>Turn on sound</button>}
   </footer>
  </dialog>;

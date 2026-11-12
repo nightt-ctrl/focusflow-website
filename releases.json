@@ -1,12 +1,14 @@
 [
   {
-    "name": "FocusFlow-0.6.0.zip",
-    "bytes": 124455585,
-    "sha256": "436528f12249b7d00a5bcdd955f3b98fffcc5cad8331f36f6a6406cafbd0a5de"
+    "name": "FocusTether-0.6.2.zip",
+    "bytes": 130018077,
+    "sha256": "b3e38882ac3e6f6dd6082c61064c0ef3d5cf1691a163b80b4f6732c9581a4c7b",
+    "publicUrl": "https://github.com/nightt-ctrl/focusflow-website/releases/download/v0.6.2/FocusTether-0.6.2.zip"
   },
   {
-    "name": "FocusFlow-Parent-0.3.0-debug.apk",
-    "bytes": 10898362,
-    "sha256": "a1836e54cbf9904dfa02aaef63bc6091138066cd8986f116bc08a239a319a1f5"
+    "name": "FocusTether-Parent-0.3.1-debug.apk",
+    "bytes": 10896382,
+    "sha256": "c3655cf07f27de27499cac19c5ab38f8945391f185e575ffcb2642b5310f7e25",
+    "publicUrl": "https://github.com/nightt-ctrl/focusflow-website/releases/download/v0.6.2/FocusTether-Parent-0.3.1-debug.apk"
   }
 ]
