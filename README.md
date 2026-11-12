@@ -14,7 +14,7 @@ pnpm build
 node scripts/serve.mjs
 ```
 
-Open http://127.0.0.1:4173. Both local download links use the actual Windows 0.6.2 ZIP and Android Parent 0.3.1 APK in `downloads/`.
+Open http://127.0.0.1:4173. Both local download links use the actual Windows 0.6.3 ZIP and Android Parent 0.3.1 APK in `downloads/`.
 
 The Desktop project and complete website ZIP include both release files, so the local preview works after extraction. The Windows ZIP remains excluded from Git and Vercel source uploads by `.gitignore` and `.vercelignore`; use a public release URL when publishing as described below.
 
