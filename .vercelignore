@@ -1,5 +1,6 @@
 dist
 downloads/*.zip
+downloads/*.exe
 .git
 .env*
 README.md

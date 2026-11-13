@@ -1,14 +1,14 @@
 [
   {
-    "name": "FocusTether-0.6.3.zip",
-    "bytes": 130019019,
-    "sha256": "6e437ead11edf0ae883077fba2c2a560e3f0dfd0c0da7f7b95fe408c5383fa20",
-    "publicUrl": "https://github.com/nightt-ctrl/focustether-downloads/releases/download/v0.6.3/FocusTether-0.6.3.zip"
+    "name": "FocusTether-0.6.4-Setup.exe",
+    "bytes": 119198934,
+    "sha256": "d8496c3e7fc53d0a874bba28c47b0df8c8de33626576ca49599dd99fcc342196",
+    "publicUrl": "https://github.com/nightt-ctrl/focustether-downloads/releases/download/v0.6.4/FocusTether-0.6.4-Setup.exe"
   },
   {
     "name": "FocusTether-Parent-0.3.1-debug.apk",
     "bytes": 10896382,
     "sha256": "c3655cf07f27de27499cac19c5ab38f8945391f185e575ffcb2642b5310f7e25",
-    "publicUrl": "https://github.com/nightt-ctrl/focustether-downloads/releases/download/v0.6.3/FocusTether-Parent-0.3.1-debug.apk"
+    "publicUrl": "https://github.com/nightt-ctrl/focustether-downloads/releases/download/v0.6.4/FocusTether-Parent-0.3.1-debug.apk"
   }
 ]
